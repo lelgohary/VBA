@@ -1,0 +1,105 @@
+Sub OnlineSignUps()
+'
+' OnlineSignUps Macro
+'
+'Keyboard Shortcut: Option+Cmd+i
+
+'Set Dimension types
+    Dim lastrow As Integer
+    Dim path As String
+    Dim i As Long
+    Dim x As String
+    Dim dt As String
+    
+'Delete 1st row
+    Rows("1:1").Select
+    Selection.Delete Shift:=xlUp
+    
+'Deleteing the columns that we don't need
+    Columns("A:D").Select
+    Selection.Delete Shift:=xlToLeft
+    Columns("B:B").Select
+    Selection.Delete Shift:=xlToLeft
+    Columns("C:C").Select
+    Selection.Delete Shift:=xlToLeft
+    Columns("D:K").Select
+    Selection.Delete Shift:=xlToLeft
+    Columns("F:F").Select
+    Selection.Delete Shift:=xlToLeft
+    Columns("G:I").Select
+    Selection.Delete Shift:=xlToLeft
+    Columns("H:I").Select
+    Selection.Delete Shift:=xlToLeft
+    Columns("K:BT").Select
+    Selection.Delete Shift:=xlToLeft
+    
+'This highlights all the cells.
+    Cells.Select
+  
+'Replacing commas with spaces
+    Selection.Replace What:=",", Replacement:="", LookAt:=xlPart, _
+        SearchOrder:=xlByRows, MatchCase:=False
+
+'Replacing the word supporter with nothing
+    Selection.Replace What:="(supporter)", Replacement:=" ", LookAt:=xlPart, _
+        SearchOrder:=xlByRows, MatchCase:=False
+    
+'Rename cell K1 with the heading Notes
+    Range("K1").Select
+    ActiveCell.FormulaR1C1 = "Notes"
+
+'Highlights all cells and removes the text wrapping to make it easier to see
+    Cells.Select
+    With Selection
+        .HorizontalAlignment = xlGeneral
+        .VerticalAlignment = xlBottom
+        .WrapText = False
+    End With
+    
+'Determines the last row of the sheet and gives it a number
+With ActiveSheet
+        lastrow = .Cells(.Rows.Count, "A").End(xlUp).Row
+        End With
+    
+'Names the last column row
+    Range("L1").Select
+    ActiveCell.FormulaR1C1 = "Row"
+    
+'Fills in the first 3 numbers
+    Range("L2").Select
+    ActiveCell.FormulaR1C1 = "2"
+    Range("L3").Select
+    ActiveCell.FormulaR1C1 = "3"
+    Range("L4").Select
+    ActiveCell.FormulaR1C1 = "4"
+    
+'Choosing the range to autofill based off of
+    Range("L2:L4").Select
+    
+'Selects the autofill based on the entire range (includes last row)
+    Selection.autofill Destination:=Range("L2:L" & lastrow)
+        
+    
+'Saving the document with the same name but saving as csv
+    ActiveWorkbook.SaveAs Filename:=ActiveWorkbook.FullName, FileFormat:=xlCSV
+    
+ 
+'SAVING
+
+path = "Macintosh HD:Users:lailaelgohary:Desktop:KY:Online SignUps:"
+
+'Find the position of the period in the file name
+i = InStr(ActiveWorkbook.name, ".")
+
+'To remove the .xls from the name, then add a .csv
+'x = Left(ActiveWorkbook.name, i - 1) & ".csv"
+x = "ALG Volunteers" & Format(Date, "mm.dd.yy") & ".csv"
+
+Application.DisplayAlerts = False
+ActiveWorkbook.SaveAs Filename:=path & x, FileFormat:=xlCSVWindows, ConflictResolution:=xlLocalSessionChanges, CreateBackup:=False
+Application.DisplayAlerts = True
+ActiveWorkbook.Close False
+    
+
+End Sub
+
