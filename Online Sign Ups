@@ -12,8 +12,8 @@ Sub OnlineSignUps()
     Dim dt As String
     
 'Delete 1st row
-    Rows("1:1").Select
-    Selection.Delete Shift:=xlUp
+  '  Rows("1:1").Select
+   ' Selection.Delete Shift:=xlUp
     
 'Deleteing the columns that we don't need
     Columns("A:D").Select
@@ -32,6 +32,10 @@ Sub OnlineSignUps()
     Selection.Delete Shift:=xlToLeft
     Columns("K:BT").Select
     Selection.Delete Shift:=xlToLeft
+    Columns("K:P").Select
+    Selection.Delete Shift:=xlToLeft
+    
+    'Delete columns K:P added to remove additional extra rows
     
 'This highlights all the cells.
     Cells.Select
@@ -47,6 +51,10 @@ Sub OnlineSignUps()
 'Rename cell K1 with the heading Notes
     Range("K1").Select
     ActiveCell.FormulaR1C1 = "Notes"
+    
+'Rename cell G1 with the heading Address line 1
+    Range("G1").Select
+    ActiveCell.FormulaR1C1 = "Address line 1"
 
 'Highlights all cells and removes the text wrapping to make it easier to see
     Cells.Select
@@ -77,29 +85,29 @@ With ActiveSheet
     Range("L2:L4").Select
     
 'Selects the autofill based on the entire range (includes last row)
-    Selection.autofill Destination:=Range("L2:L" & lastrow)
+    Selection.AutoFill Destination:=Range("L2:L" & lastrow)
         
     
 'Saving the document with the same name but saving as csv
-    ActiveWorkbook.SaveAs Filename:=ActiveWorkbook.FullName, FileFormat:=xlCSV
-    
+  ' ActiveWorkbook.SaveAs Filename:=ActiveWorkbook.FullName, FileFormat:=xlCSV
+    'deactivated above to debug saving
  
 'SAVING
 
-path = "Macintosh HD:Users:lailaelgohary:Desktop:KY:Online SignUps:"
+path = "C:\Users\Local User\Documents\ALG 2014\OnlineSignUp\ALGonline"
 
 'Find the position of the period in the file name
-i = InStr(ActiveWorkbook.name, ".")
+i = InStr(ActiveWorkbook.Name, ".")
 
 'To remove the .xls from the name, then add a .csv
-'x = Left(ActiveWorkbook.name, i - 1) & ".csv"
+x = Left(ActiveWorkbook.Name, i - 1) & ".csv"
 x = "ALG Volunteers" & Format(Date, "mm.dd.yy") & ".csv"
 
 Application.DisplayAlerts = False
-ActiveWorkbook.SaveAs Filename:=path & x, FileFormat:=xlCSVWindows, ConflictResolution:=xlLocalSessionChanges, CreateBackup:=False
+ActiveWorkbook.SaveAs Filename:=path & x, FileFormat:=xlCSV, ConflictResolution:=xlLocalSessionChanges, CreateBackup:=False
 Application.DisplayAlerts = True
-ActiveWorkbook.Close False
-    
+'ActiveWorkbook.Close False
+ 'Deactivated above to debug saving
 
 End Sub
 
