@@ -1,0 +1,43 @@
+Sub ColorScales()
+'
+Dim Clear As Ranges
+
+CS = "P4:P52,H4:H52"     '<----------- change me!
+
+  
+'This part clears all the formatting for PTG Columns
+    Range(CS).Select
+    With Selection.Interior
+        .Pattern = xlNone
+        .TintAndShade = 0
+        .PatternTintAndShade = 0
+    End With
+        
+' Selects the ranges you just cleared
+    Range(CS).Select
+    Selection.FormatConditions.AddColorScale ColorScaleType:=3
+    Selection.FormatConditions(Selection.FormatConditions.Count).SetFirstPriority
+    Selection.FormatConditions(1).ColorScaleCriteria(1).Type = _
+        xlConditionValueNumber
+    Selection.FormatConditions(1).ColorScaleCriteria(1).Value = 0
+    With Selection.FormatConditions(1).ColorScaleCriteria(1).FormatColor
+        .Color = 7039480
+        .TintAndShade = 0
+    End With
+    Selection.FormatConditions(1).ColorScaleCriteria(2).Type = _
+        xlConditionValuePercent
+    Selection.FormatConditions(1).ColorScaleCriteria(2).Value = 70
+    With Selection.FormatConditions(1).ColorScaleCriteria(2).FormatColor
+        .ThemeColor = xlThemeColorAccent5
+        .TintAndShade = 0.399975585192419
+    End With
+    Selection.FormatConditions(1).ColorScaleCriteria(3).Type = _
+        xlConditionValueNumber
+    Selection.FormatConditions(1).ColorScaleCriteria(3).Value = 1
+    With Selection.FormatConditions(1).ColorScaleCriteria(3).FormatColor
+        .ThemeColor = xlThemeColorLight2
+        .TintAndShade = -0.249977111117893
+    End With
+End Sub
+
+
