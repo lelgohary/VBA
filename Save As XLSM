@@ -5,9 +5,9 @@ Dim path As String
 
 Application.DisplayAlerts = False
 
-wbName = "GOTV Shift Report - "
+wbName = "anything I want to call you "
 dt = Format(CStr(Now), "mm.dd")
-path = "C:\Users\Lyla\Dropbox\Team Data\Copies of Final Reports\"  '<--------- where you want it saved
+path = "C:\Users\Lyla\"  '<--------- where you want it saved
 
 ActiveWorkbook.SaveAs Filename:=path & wbName & dt, FileFormat:=52
 End Sub
