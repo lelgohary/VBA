@@ -1,0 +1,13 @@
+Sub saveasxlsm()
+Dim dt As String
+Dim wbName As String
+Dim path As String
+
+Application.DisplayAlerts = False
+
+wbName = "GOTV Shift Report - "
+dt = Format(CStr(Now), "mm.dd")
+path = "C:\Users\Lyla\Dropbox\Team Data\Copies of Final Reports\"  '<--------- where you want it saved
+
+ActiveWorkbook.SaveAs Filename:=path & wbName & dt, FileFormat:=52
+End Sub
